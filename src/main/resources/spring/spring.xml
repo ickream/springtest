@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--总配置文件，引入所有配置文件和事务配置相关-->
+    <import resource="spring-mvc.xml" />
+    <import resource="spring-beans.xml"/>
+
+    <!-- 扫描注解，除去web层注解，web层注解在mvc配置中扫描 -->
+    <context:component-scan base-package="com.ickream" >
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller" />
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.RestController" />
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+    </context:component-scan>
+
+    <!-- 声明spring对@AspectJ的支持 默认情况下Spring不支持注解形式的切面-->
+    <aop:aspectj-autoproxy/>
+
+</beans>

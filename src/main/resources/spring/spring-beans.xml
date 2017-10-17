@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--自定义beans文件相关-->
+
+    <!--在这里放入所有自定义的beans文件-->
+    <!--<bean id="aspectBean" class="com.ickream.util.AopTest" />-->
+    <aop:config>
+        <aop:aspect ref="aopTestByXML">
+            <aop:pointcut id="pointcut" expression="execution(* com.ickream.service.impl.ServiceTestImpl..*(..))
+             or execution(* com.ickream.service.impl.UserManagerServiceImpl..*(..)) "/>
+
+            <aop:before method="doBefore" pointcut-ref="pointcut"/>
+            <aop:after-returning method="doAfterReturning" pointcut-ref="pointcut" returning="result"/>
+            <aop:after method="doAfter" pointcut-ref="pointcut" />
+            <aop:around method="doAround" pointcut-ref="pointcut"/>
+            <aop:after-throwing method="doAfterThrowing" pointcut-ref="pointcut" throwing="ex"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
